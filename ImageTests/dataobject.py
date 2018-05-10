@@ -40,6 +40,7 @@ class PersonalDataSet(Dataset):
         self.name = name
         self.fig = Figuren()
         if (rebuild):
+            print("building datset of size ", size, " randomness:", randomness, " grain:", grain)
             for i in range(size):
                 line, triangle, parralellogram, elipse = self.generateFigures(framesize=framesize, randomness=randomness, grain=grain)
 
@@ -52,7 +53,7 @@ class PersonalDataSet(Dataset):
                 self.labels.append(1)
                 self.labels.append(2)
                 self.labels.append(3)
-                print("generated %d out of %d" % (i,size))
+                # print("generated %d out of %d" % (i,size))
 
             self.save()
         self.data, self.labels = self.load()

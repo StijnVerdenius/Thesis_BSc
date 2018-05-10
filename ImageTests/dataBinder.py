@@ -7,12 +7,13 @@ from random import randint
 
 
 class DataBinder(DataLoader):
-    def __init__(self, name, batch_size):
+    def __init__(self, name, batch_size, raw = None):
 
         self.name = name
-        self.raw = dataobject.PersonalDataSet(rebuild=False, name=self.name)
+        self.raw = raw
+        if (self.raw == None):
+            self.raw = dataobject.PersonalDataSet(rebuild=False, name=self.name)
         super().__init__(self.raw, batch_size=batch_size, shuffle=False, num_workers=2)
-        # self.loader = DataLoader(self.raw, batch_size=batch_siz, shuffle=False, num_workers=2)
 
     def __getitem__(self, index):
         return self.raw[index]

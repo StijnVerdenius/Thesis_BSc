@@ -4,6 +4,7 @@
 
 import torch.nn.functional as F
 import torch.nn as nn
+import torch.optim as optim
 
 
 class Net(nn.Module):
@@ -16,6 +17,9 @@ class Net(nn.Module):
         self.fc2 = nn.Linear(150, 100)
         self.fc3 = nn.Linear(100, 50)
         self.fc4 = nn.Linear(50, 10)
+        self.criterion = nn.CrossEntropyLoss()
+        self.optimizer = optim.SGD(self.parameters(), lr=0.001, momentum=0.9)
+        self.optimizer.zero_grad()
         # self.fc5 = nn.Linear(51, 38)
         # self.fc6 = nn.Linear(38, 27)
         # self.fc7 = nn.Linear(27, 18)
