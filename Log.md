@@ -25,10 +25,35 @@
 - genereren data voor curriculum bouwer
 - TSP generator afmaken, bijna af
 
-#### 07-05-2017
+#### 07-05-2018
 
 - runnen curriculum bouwer
 - eerste stukje thesis geschreven over transfer en curriculum learning
 - eerste resultaten curriculum bouwer, nog niet tevreden.
 
-#### 08
+#### 08-05-2018
+
+- brainstromed over the course of the project
+- hoe kunnen we de toyproblem resultaten gebruiken voor het echte probleem -> goede maten
+- niet te veel stressen om de tijd
+- addaptive agent bedacht en geimplementeerd
+
+
+#### 10-05-2018
+
+- experimenten runnen addaptive agent
+- methoden geschreven en experiment voor image classification voor in thesis
+
+#### 11-05-2018
+
+- resultaten van addaptive agent
+- methoden, experiment en theory stukken van thesis verbeterd en opgestuurd voor tussenbeoordeling
+
+#### 12-05-2018
+
+-
+
+#### 14-05-2018
+
+-
+

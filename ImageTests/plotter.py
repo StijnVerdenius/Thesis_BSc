@@ -19,10 +19,12 @@ dingen = [
 
 ##################
 
+agentNames = ["No Curriculum", "Supervised Curriculum", "Addaptive Curriculum", "Unsupervised Curriculum"]
+
 for iii, sort in enumerate([("validationset", 86, "lower right"), ("loss", 750, "upper right")]):
 
     curs = dingen
-    for cur in curs:
+    for iiii, cur in enumerate(curs):
         plt.title(str(cur))
         data = []
         for line in open("results/"+str(cur)+"_score_in_time_"+sort[0]+".csv"):
