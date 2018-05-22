@@ -49,11 +49,27 @@
 - resultaten van addaptive agent
 - methoden, experiment en theory stukken van thesis verbeterd en opgestuurd voor tussenbeoordeling
 
-#### 12-05-2018
-
--
 
 #### 14-05-2018
 
--
+- bad day
+- analysed code from (Kool & Welling, 2018)
 
+#### 15-05-2018
+
+- computer broke
+- started writing theoretical framework
+
+#### 17-05-2018
+
+- wrote theoretical framework
+- made midterm presentation
+
+#### 18-05-2018
+
+- improved theoretical framework and mid-term presentation
+
+#### 22-05-2018
+
+- setup environments for das4 and uva pc
+- finalised TSP-generator to be compatible with Pytorch
