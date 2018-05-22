@@ -49,7 +49,6 @@
 - resultaten van addaptive agent
 - methoden, experiment en theory stukken van thesis verbeterd en opgestuurd voor tussenbeoordeling
 
-
 #### 14-05-2018
 
 - bad day
