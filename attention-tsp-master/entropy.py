@@ -211,6 +211,9 @@ class tsp_batch(object):
     def getall(self):
         return self.data
 
+    def __len__(self):
+        return len(self.data)
+
 
 
 
