@@ -77,3 +77,5 @@
 
 - setup TSP-experiment for supervised curriculum learning
 - midterm presentation
+- started running first supervised test
+- improving presentation/thesis

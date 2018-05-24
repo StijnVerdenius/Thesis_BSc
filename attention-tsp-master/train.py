@@ -84,7 +84,7 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
     training_dataset = 0
     if (opts.experiment == "supervised"):
 
-        exp_params = opts.experiment_parameter[opts.experiment]
+        exp_params = opts.supervised_parameter
         correct_tuple = 0
         counter = 0
         for tup in exp_params:
@@ -92,7 +92,9 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
                 correct_tuple += 1
         correct_tuple = exp_params[correct_tuple]
 
-        training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=opts.epoch_size, entropy=correct_tuple[2]))
+        # training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=opts.epoch_size, entropy=correct_tuple[2]))
+        training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=1, entropy=correct_tuple[2]))
+
     elif (opts.experiment == "addaptive"):
         pass
     elif (opts.experiment == "unsupervised"):

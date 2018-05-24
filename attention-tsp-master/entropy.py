@@ -189,8 +189,9 @@ class tsp_instance(object):
 
     def noisify(self, pure, amount):
         noise = np.random.normal(0, 1, pure.shape)*(amount*0.15)
-        return self.normalize(pure + noise)
-
+        temp = pure+noise
+        temp2 = np.dot(temp, self.rotationmatrix(randint(0,359)))
+        return self.normalize(temp2)
 
     def shake(self):
         self.locations = self.noisify(self.locations, self.entropy)
