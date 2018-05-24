@@ -83,6 +83,7 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
     # Generate new training data for each epoch
     training_dataset = 0
     if (opts.experiment == "supervised"):
+        
 
         exp_params = opts.supervised_parameter
         correct_tuple = 0
