@@ -3,13 +3,13 @@
 
 from random import randint, choice
 import numpy as np
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as #plt
 from copy import deepcopy
 from sklearn import preprocessing
 
 mima = preprocessing.MinMaxScaler()
 
-
+#plt= 
 
 
 class Entropy(object):
@@ -58,10 +58,10 @@ class Entropy(object):
         if (self.show):
             print(len(positions))
             # positions = noisify(np.concatenate((positions, np.array([positions[0]])), axis=0), 1.0)
-            plt.scatter(positions[:,0], positions[:,1])
-            plt.show()
-            plt.plot(positions[:,0], positions[:,1])
-            plt.show()
+            #plt.scatter(positions[:,0], positions[:,1])
+            #plt.show()
+            #plt.plot(positions[:,0], positions[:,1])
+            #plt.show()
         else:
             return [list([float(y) for y in x]) for x in positions]
 
@@ -100,8 +100,8 @@ class Entropy(object):
         if (self.show):
             print (len(positions))
             positions = np.concatenate((positions, np.array([positions[0]])), axis=0)
-            plt.plot(positions[:,0], positions[:,1])
-            plt.show()
+            #plt.plot(positions[:,0], positions[:,1])
+            #plt.show()
         else:
             return [list([float(y) for y in x]) for x in positions]
 
@@ -140,8 +140,8 @@ class Entropy(object):
         if (self.show):
             print(len(positions))
             positions = np.concatenate((positions, np.array([positions[0]])), axis=0)
-            plt.plot(positions[:,0], positions[:,1])
-            plt.show()
+            #plt.plot(positions[:,0], positions[:,1])
+            #plt.show()
         else:
             return [list([float(y) for y in x]) for x in positions]
 
@@ -195,8 +195,8 @@ class tsp_instance(object):
     def shake(self):
         self.locations = self.noisify(self.locations, self.entropy)
         # print (self.locations)
-        # plt.plot(self.locations[:, 0], self.locations[:, 1])
-        # plt.show()
+        # #plt.plot(self.locations[:, 0], self.locations[:, 1])
+        # #plt.show()
 
     def getTensor(self):
         pass
