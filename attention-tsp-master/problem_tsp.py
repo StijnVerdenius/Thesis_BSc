@@ -51,7 +51,7 @@ class TSPDataset(Dataset):
             # Sample points randomly in [0, 1] square
             # self.data = [torch.FloatTensor(size, 2).uniform_(0, 1) for i in range(num_samples)]
             print("creating dataset")
-            self.data = entropy.tsp_batch(20,0,100000)
+            self.data = entropy.tsp_batch(20,0,100000).getall()
             print("finished creating dataset")
 
         self.size = len(self.data)
