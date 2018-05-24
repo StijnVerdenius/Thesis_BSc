@@ -226,4 +226,4 @@ class tsp_batch(object):
 # ps.print_stats()
 # print s.getvalue()
 
-print(tsp_batch(512).size())
+print(tsp_batch(20, 0, 512).size())
