@@ -6,6 +6,7 @@ import numpy as np
 # from matplotlib import pyplot as #plt
 from copy import deepcopy
 from sklearn import preprocessing
+import torch
 
 mima = preprocessing.MinMaxScaler()
 
