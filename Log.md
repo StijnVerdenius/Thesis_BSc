@@ -72,3 +72,8 @@
 
 - setup environments for das4 and uva pc
 - finalised TSP-generator to be compatible with Pytorch
+
+#### 24-05-2018
+
+- setup TSP-experiment for supervised curriculum learning
+- midterm presentation
