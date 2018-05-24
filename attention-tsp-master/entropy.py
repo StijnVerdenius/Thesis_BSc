@@ -201,17 +201,29 @@ class tsp_instance(object):
     def getTensor(self):
         pass
 
+class tsp_batch(object):
+    def __init__(self, order, entropydegree, size):
+        self.data = []
+        for x in range(size):
+            self.data.append(tsp_instance(order=order, entropydegree=entropydegree))
+
+    def getall():
+        return torch.FloatTensor(self.data)
 
 
-import cProfile, pstats, StringIO
-pr = cProfile.Profile()
-pr.enable()
-for aan in range(1000):
-    # print aan
-    tsp_instance(20)
-pr.disable()
-s = StringIO.StringIO()
-sortby = 'cumulative'
-ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-ps.print_stats()
-print s.getvalue()
+
+
+# import cProfile, pstats, StringIO
+# pr = cProfile.Profile()
+# pr.enable()
+# for aan in range(1000):
+#     # print aan
+#     tsp_instance(20)
+# pr.disable()
+# s = StringIO.StringIO()
+# sortby = 'cumulative'
+# ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+# ps.print_stats()
+# print s.getvalue()
+
+print(tsp_batch(512).size())
