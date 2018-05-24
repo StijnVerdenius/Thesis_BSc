@@ -193,6 +193,11 @@ class tsp_instance(object):
         temp2 = np.dot(temp, self.rotationmatrix(randint(0,359)))
         return self.normalize(temp2)
 
+    def rotationmatrix(self, degrees):
+        theta = np.radians(degrees)
+        c, s = np.cos(theta), np.sin(theta)
+        return np.array(((c, -s), (s, c)))
+
     def shake(self):
         self.locations = self.noisify(self.locations, self.entropy)
         # print (self.locations)
@@ -213,26 +218,3 @@ class tsp_batch(object):
 
     def __len__(self):
         return len(self.data)
-
-
-
-
-# import cProfile, pstats, StringIO
-# pr = cProfile.Profile()
-# pr.enable()
-# for aan in range(1000):
-#     # print aan
-#     tsp_instance(20)
-# pr.disable()
-# s = StringIO.StringIO()
-# sortby = 'cumulative'
-# ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-# ps.print_stats()
-# print s.getvalue()
-
-# data = tsp_batch(20, 0, 5).getall()
-
-
-# print(data)
-# print(data[0].size(), len(data))
-
