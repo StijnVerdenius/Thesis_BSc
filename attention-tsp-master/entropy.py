@@ -227,9 +227,9 @@ class tsp_batch(object):
 # ps.print_stats()
 # print s.getvalue()
 
-data = tsp_batch(20, 0, 5).getall()
+# data = tsp_batch(20, 0, 5).getall()
 
 
-print(data)
-print(data[0].size(), len(data))
+# print(data)
+# print(data[0].size(), len(data))
 

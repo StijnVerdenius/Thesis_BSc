@@ -2,6 +2,7 @@ from torch.utils.data import Dataset
 import torch
 import os
 import pickle
+import entropy
 
 
 class TSP(object):
@@ -48,7 +49,10 @@ class TSPDataset(Dataset):
                 self.data = [torch.FloatTensor(row) for row in data[:num_samples]]
         else:
             # Sample points randomly in [0, 1] square
-            self.data = [torch.FloatTensor(size, 2).uniform_(0, 1) for i in range(num_samples)]
+            # self.data = [torch.FloatTensor(size, 2).uniform_(0, 1) for i in range(num_samples)]
+            print("creating dataset")
+            self.data = entropy.tsp_batch(20,0,100000)
+            print("finished creating dataset")
 
         self.size = len(self.data)
 
