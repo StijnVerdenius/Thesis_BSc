@@ -56,7 +56,7 @@ class Entropy(object):
         positions=  self.normalize(positions)
 
         if (self.show):
-            print len(positions)
+            print(len(positions))
             # positions = noisify(np.concatenate((positions, np.array([positions[0]])), axis=0), 1.0)
             plt.scatter(positions[:,0], positions[:,1])
             plt.show()
@@ -98,7 +98,7 @@ class Entropy(object):
         positions=  self.normalize(positions)
 
         if (self.show):
-            print len(positions)
+            print (len(positions))
             positions = np.concatenate((positions, np.array([positions[0]])), axis=0)
             plt.plot(positions[:,0], positions[:,1])
             plt.show()
@@ -138,7 +138,7 @@ class Entropy(object):
         positions=  self.normalize(positions)
 
         if (self.show):
-            print len(positions)
+            print(len(positions))
             positions = np.concatenate((positions, np.array([positions[0]])), axis=0)
             plt.plot(positions[:,0], positions[:,1])
             plt.show()
