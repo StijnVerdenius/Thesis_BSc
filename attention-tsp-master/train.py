@@ -85,8 +85,12 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
     if (opts.experiment == "supervised"):
 
         exp_params = opt.experiment_parameters[0]
+        print(exp_params)
+        2 + "a"
         correct_tuple = 0
+        counter = 0
         for tup in exp_params:
+            counter += 
             if (tup[0] < epoch+1):
                 correct_tuple += 1
         correct_tuple = opts[correct_tuple]
