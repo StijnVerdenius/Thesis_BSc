@@ -165,7 +165,8 @@ class tsp_instance(object):
         self.entropy = entropydegree
         self.locations = []
         pickKoch = 0#randint(0,len(e.locations)-1)
-        kochline = deepcopy(e.locations[pickKoch])
+        # kochline = deepcopy(e.locations[pickKoch])
+        kochline = [[a for a in b] for b in e.locations[pickKoch]]
         # print kochline
         toPick = order
         bestLine = 0
