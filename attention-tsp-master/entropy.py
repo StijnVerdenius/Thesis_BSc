@@ -200,13 +200,13 @@ class tsp_instance(object):
         # #plt.show()
 
     def getTensor(self):
-        pass
+        return torch.FloatTensor(self.locations)
 
 class tsp_batch(object):
     def __init__(self, order, entropydegree, size):
         self.data = []
         for x in range(size):
-            self.data.append(tsp_instance(order=order, entropydegree=entropydegree))
+            self.data.append(tsp_instance(order=order, entropydegree=entropydegree).getTensor())
 
     def getall(self):
         return torch.FloatTensor(self.data)
