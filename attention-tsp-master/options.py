@@ -54,6 +54,8 @@ def get_options(args=None):
     parser.add_argument('--load_path', help='Path to load model parameters and optimizer state from')
     parser.add_argument('--no_tensorboard', action='store_true', help='Disable logging TensorBoard files')
     parser.add_argument('--no_progress_bar', action='store_true', help='Disable progress bar')
+    parser.add_argument('--experiment', default='supervised', help='the type of experiment you want runned')
+    parser.add_argument('--experiment_parameter', type=dict, default={"supervised" : [(5,4,0.0), (10,9,0.46), (20,79,1.0)], "adaptive" : (0.5,100)}, help='parameters given to the --experiment command line argument')
 
     opts = parser.parse_args(args)
 

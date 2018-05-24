@@ -10,7 +10,6 @@ import torch
 
 mima = preprocessing.MinMaxScaler()
 
-#plt= 
 
 
 class Entropy(object):

@@ -81,7 +81,18 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
         log_value('learnrate_pg0', optimizer.param_groups[0]['lr'], step)
 
     # Generate new training data for each epoch
-    training_dataset = baseline.wrap_dataset(problem.make_dataset(size=opts.graph_size, num_samples=opts.epoch_size))
+    training_dataset = 0
+    if (opts.experiment == "supervised"):
+
+        exp_params = opt.experiment_parameters[0]
+        correct_tuple = 0
+        for tup in exp_params:
+            if (tup[0] < epoch+1):
+                correct_tuple += 1
+        correct_tuple = opts[correct_tuple]
+
+        training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[1], num_samples=opts.epoch_size, entropy=correct_tuple[2]))
+
     training_dataloader = DataLoader(training_dataset, batch_size=opts.batch_size, num_workers=1)
 
     # Put model in train mode!

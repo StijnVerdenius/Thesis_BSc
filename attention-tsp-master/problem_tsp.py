@@ -37,7 +37,7 @@ class TSP(object):
 
 class TSPDataset(Dataset):
     
-    def __init__(self, filename=None, size=50, num_samples=1000000):
+    def __init__(self, filename=None, size=50, num_samples=1000000, entropy=1.0):
         super(TSPDataset, self).__init__()
 
         self.data_set = []
@@ -50,8 +50,8 @@ class TSPDataset(Dataset):
         else:
             # Sample points randomly in [0, 1] square
             # self.data = [torch.FloatTensor(size, 2).uniform_(0, 1) for i in range(num_samples)]
-            print("creating dataset")
-            self.data = entropy.tsp_batch(20,0,100000).getall()
+            print("creating dataset for size {}, num_samples {}, entropy {}".format(size, num_samples, entropy))
+            self.data = entropy.tsp_batch(size, entropy, num_samples).getall()
             print("finished creating dataset")
 
         self.size = len(self.data)
