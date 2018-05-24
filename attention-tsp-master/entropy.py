@@ -207,7 +207,7 @@ class tsp_batch(object):
         for x in range(size):
             self.data.append(tsp_instance(order=order, entropydegree=entropydegree))
 
-    def getall():
+    def getall(self):
         return torch.FloatTensor(self.data)
 
 
