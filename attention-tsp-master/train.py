@@ -83,15 +83,24 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
     # Generate new training data for each epoch
     training_dataset = 0
     if (opts.experiment == "supervised"):
-        
 
         exp_params = opts.supervised_parameter
+        
+
+
         correct_tuple = 0
-        counter = 0
-        for tup in exp_params:
-            if (tup[1] < epoch+1):
-                correct_tuple += 1
-        correct_tuple = exp_params[correct_tuple]
+        counter = -1
+
+        while (counter<epoch):
+            for _ in range(exp_params[correct_tuple][1]):
+
+                counter += 1
+                if (counter == epoch):
+                    correct_tuple = exp_params[correct_tuple]
+                    break
+            if (type(correct_tuple) == type(tuple([1,2,3]))):
+                break
+            correct_tuple += 1
 
         training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=opts.epoch_size, entropy=correct_tuple[2]))
         # training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=1, entropy=correct_tuple[2]))

@@ -7,6 +7,7 @@ import numpy as np
 from copy import deepcopy
 from sklearn import preprocessing
 import torch
+from tqdm import tqdm
 
 mima = preprocessing.MinMaxScaler()
 
@@ -210,7 +211,7 @@ class tsp_instance(object):
 class tsp_batch(object):
     def __init__(self, order, entropydegree, size):
         self.data = []
-        for x in range(size):
+        for _ in tqdm((a for a in range(size)), total=size):
             self.data.append(tsp_instance(order=order, entropydegree=entropydegree).getTensor())
 
     def getall(self):
