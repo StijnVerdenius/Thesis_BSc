@@ -12,6 +12,9 @@ from tensorboard_logger import log_value
 from attention_model import set_decode_type
 from log_utils import log_values
 
+adaptief_vorige_score = []
+adaptief_current_graph_size = 5
+adaptief_current_entropy = 0.0
 
 def get_inner_model(model):
     return model.module if isinstance(model, DataParallel) else model
@@ -102,15 +105,37 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
                 break
             correct_tuple += 1
 
-        training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=opts.epoch_size, entropy=correct_tuple[2]))
+        training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=opts.epoch_size, entropy=correct_tuple[2], target=opts.graph_size))
         # training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=1, entropy=correct_tuple[2]))
 
-    elif (opts.experiment == "addaptive"):
-        pass
+    elif (opts.experiment == "adaptive"):
+        
+        if (not len(adaptief_vorige_score) >=  (opts.epoch_size/opts.batch_size)*2):
+            print ("initial dataset")
+            training_dataset = baseline.wrap_dataset(problem.make_dataset(size=5, num_samples=opts.epoch_size, entropy=0.0, target=opts.graph_size))
+        elif (adaptief_current_graph_size >= opts.graph_size and adaptief_current_entropy >= 1.0):
+            training_dataset = baseline.wrap_dataset(problem.make_dataset(size=opts.graph_size, num_samples=opts.epoch_size, entropy=1.0, target=opts.graph_size))
+        else:
+            exp_params = opts.adaptive_parameter[0]
+            percentage = exp_params[0]
+            stepsize_size = exp_params[1]
+            stepsize_entropy = exp_params[2]
+            half = int(len(adaptief_vorige_score)/2)
+            nieuw = np.mean(adaptief_vorige_score[half:])
+            oud = np.mean(adaptief_vorige_score[:half])
+            improvement = -((nieuw-oud)/oud)
+            if (improvement < percentage):
+ 
+                adaptief_current_entropy += stepsize_entropy
+                adaptief_current_graph_size += stepsize_size
+                print ("dataset upped to: entropy {}, size {}".format(adaptief_current_entropy, adaptief_current_graph_size))
+            else:
+                print ("improvement {} was lower than percentage {}".format(improvement, percentage))
+            training_dataset = baseline.wrap_dataset(problem.make_dataset(size=adaptief_current_graph_size, num_samples=opts.epoch_size, entropy=adaptief_current_entropy, target=opts.graph_size))
     elif (opts.experiment == "unsupervised"):
         pass
     else:
-        training_dataset = baseline.wrap_dataset(problem.make_dataset(size=opts.graph_size, num_samples=opts.epoch_size))
+        training_dataset = baseline.wrap_dataset(problem.make_dataset(size=opts.graph_size, num_samples=opts.epoch_size, entropy=1.0, target=opts.graph_size))
 
     training_dataloader = DataLoader(training_dataset, batch_size=opts.batch_size, num_workers=1)
 
@@ -198,7 +223,13 @@ def train_batch(
     grad_norms = clip_grad_norms(optimizer.param_groups, opts.max_grad_norm)
     optimizer.step()
 
+    if (len(adaptief_vorige_score) >= (opts.epoch_size/opts.batch_size)*2):
+        adaptief_vorige_score.pop(0)
+    adaptief_vorige_score.append(cost)
+
     # Logging
     if step % int(opts.log_step) == 0:
         log_values(cost, grad_norms, epoch, batch_id, step,
                    log_likelihood, reinforce_loss, bl_loss, opts)
+        
+

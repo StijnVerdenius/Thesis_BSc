@@ -57,9 +57,9 @@ def get_options(args=None):
     parser.add_argument('--experiment', default='supervised', help='the type of experiment you want runned [baseline, supervised, adaptive, unsupervised]')
     # parser.add_argument('--supervised_parameter', type=list, default=[(5,1,0.0),(6,1,0.1),(7,1,0.2),(8,1,0.3),(9,1,0.4),(10,1,0.5),(11,1,0.6),(12,1,0.7),(13,1,0.8),(14,1,0.9),(15,1,1.0),(16,1,1.0),(17,1,1.0),(18,1,1.0),(19,1,1.0),(20,85,1.0)], help='argument for when curriculum is supervised')
     # parser.add_argument('--supervised_parameter', type=list, default=[(5,4,0.0),(10,9,0.46),(20,87,1.0)], help='argument for when curriculum is supervised')
-    parser.add_argument('--supervised_parameter', type=list, default=[(5,2,0.0),(10,4,0.33),(15,8,0.66),(20,84,1.0)], help='argument for when curriculum is supervised')
+    parser.add_argument('--supervised_parameter', type=list, default=[(10, 2, 0.0), (20, 4, 0.25), (30, 8, 0.5), (40, 16, 0.75), (50, 100, 1.0)], help='argument for when curriculum is supervised')
 
-    parser.add_argument('--adaptive_parameter', default=[(0.05, 100)], help='argument for when curriculum is adaptive')
+    parser.add_argument('--adaptive_parameter', type=list, default=[(0.005, 1, 0.1)], help='argument for when curriculum is adaptive')
     parser.add_argument('--unsupervised_parameter', default=[(1.33)], help='argument for when curriculum is unsupervised')
     
     opts = parser.parse_args(args)

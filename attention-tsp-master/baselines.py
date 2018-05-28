@@ -103,7 +103,7 @@ class RolloutBaseline(Baseline):
         self.model = copy.deepcopy(model)
         # Always generate baseline dataset when updating model to prevent overfitting to the baseline dataset
         if dataset is None:
-            self.dataset = self.problem.make_dataset(size=self.opts.graph_size, num_samples=self.opts.val_size)
+            self.dataset = self.problem.make_dataset(size=self.opts.graph_size, num_samples=self.opts.val_size, target=self.opts.graph_size)
         else:
             self.dataset = dataset
         print("Evaluating baseline model on evaluation dataset")

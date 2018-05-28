@@ -112,7 +112,7 @@ if __name__ == "__main__":
     lr_scheduler = optim.lr_scheduler.LambdaLR(optimizer, lambda epoch: opts.lr_decay ** epoch)
 
     # Start the actual training loop
-    val_dataset = problem.make_dataset(size=opts.graph_size, num_samples=opts.val_size)
+    val_dataset = problem.make_dataset(size=opts.graph_size, num_samples=opts.val_size, entropy=1.0, target=opts.graph_size)
 
     if opts.eval_only:
         validate(model, val_dataset, opts)

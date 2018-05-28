@@ -79,3 +79,16 @@
 - midterm presentation
 - started running first supervised test
 - improving presentation/thesis
+
+#### 25-05-2018
+- bugfix target task
+- eerste experimenten volwaardig runnen op tsp-20
+- verbeteringen thesis, presentatie
+- methoden->solver begonnen te beschrijven thesis
+
+#### 26-05-2018
+
+- eerste resultaten gelijk aan baseline, tegenslag
+- proberen op tsp-50
+- adaptief ontwikkkelen met tourlengte als maat
+- verder schrijven
