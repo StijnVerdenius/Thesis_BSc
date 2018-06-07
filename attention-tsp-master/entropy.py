@@ -19,8 +19,6 @@ class Entropy(object):
     def normalize(self, a):
         return mima.fit_transform(a)
 
-
-
     def rotationmatrix(self, degrees):
         theta = np.radians(degrees)
         c, s = np.cos(theta), np.sin(theta)
@@ -210,9 +208,18 @@ class tsp_instance(object):
 
 class tsp_batch(object):
     def __init__(self, order, entropydegree, size):
+
         self.data = []
+
         for _ in tqdm((a for a in range(size)), total=size):
-            self.data.append(tsp_instance(order=order, entropydegree=entropydegree).getTensor())
+
+            sample = randint(0, 100)
+            sampledescision = ((sample/100.0) >= entropydegree)
+
+            if (sampledescision):
+                self.data.append(tsp_instance(order=order, entropydegree=entropydegree).getTensor())
+            else:
+                self.data.append(torch.FloatTensor(order, 2).uniform_(0, 1))
 
     def getall(self):
         return self.data

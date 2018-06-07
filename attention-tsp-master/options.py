@@ -58,8 +58,7 @@ def get_options(args=None):
     parser.add_argument('--supervised_parameter', default="supervised.json", help='filename for arguments for when curriculum is supervised')
 
     parser.add_argument('--adaptive_parameter', default="adaptive.json", help='filename for arguments for when curriculum is adaptive')
-    parser.add_argument('--unsupervised_parameter', default="unsupervised.json", help='filename for arguments for when curriculum is unsupervised')
-    
+
     opts = parser.parse_args(args)
 
     opts.use_cuda = torch.cuda.is_available() and not opts.no_cuda

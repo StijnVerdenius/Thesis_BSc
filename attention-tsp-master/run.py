@@ -69,9 +69,11 @@ if __name__ == "__main__":
     # Overwrite model parameters by parameters to load
     model.load_state_dict({**model.state_dict(), **load_data.get('model', {})})
 
+    adapParams = tr.loadArgument(opts.adaptive_parameter)["data"]
+
     adaptief_vorige_score = []
-    adaptief_current_graph_size = 5
-    adaptief_current_entropy = 0.0
+    adaptief_current_graph_size = adapParams[3]
+    adaptief_current_entropy = adapParams[4]
 
     tr.saveAdaptief(adaptief_vorige_score, adaptief_current_graph_size, adaptief_current_entropy, opts)
 

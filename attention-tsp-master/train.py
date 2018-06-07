@@ -251,8 +251,7 @@ def train_batch(
         
 
 def loadAdaptief(opts):
-    # with open(opts.run_name+'_adapatief.pkl', 'rb') as input:
-    #     return pickle.load(input)
+
     data = {}
     with open("temp/"+opts.run_name+'_adapatief.json') as f:
         data = json.load(f)
@@ -260,28 +259,16 @@ def loadAdaptief(opts):
 
 def saveAdaptief(a,b,c,opts):
 
-    # if (len(a) > 0):
-    #     print (a.mean())
-    #     objectI = {"a":list([float(aa) for aa in a]),"b": int(b),"c":float(c)}
-    # else:
-    #     objectI = {"a":list([float(aa) for aa in a]),"b": int(b),"c":float(c)}
 
-    # try: 
 
     objectI = {"a":a,"b":b,"c":c}
 
     with open("temp/"+opts.run_name+'_adapatief.json', 'w') as outfile:
         json.dump(objectI, outfile)
-    # except:
-    #     with open(opts.run_name+'_adapatief.json', 'w') as outfile:
-    #         json.dump([str(type(a)), str(type(b)), str(type(c))] , outfile)
-    #     2 + "a"
-    # with open(opts.run_name+'_adapatief.pkl', 'wb') as output:
-    #     pickle.dump(objectI, output, pickle.HIGHEST_PROTOCOL)
+
 
 def loadArgument(filename):
-    # with open(opts.run_name+'_adapatief.pkl', 'rb') as input:
-    #     return pickle.load(input)
+
     data = {}
     with open("experiments/{}".format(filename)) as f:
         data = json.load(f)
