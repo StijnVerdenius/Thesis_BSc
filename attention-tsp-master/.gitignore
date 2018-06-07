@@ -1,4 +1,7 @@
 data/
 outputs/
 logs/
+temp/
+termijnbewaking/
 __pycache__/
+mailing.py

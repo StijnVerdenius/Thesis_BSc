@@ -92,3 +92,23 @@
 - proberen op tsp-50
 - adaptief ontwikkkelen met tourlengte als maat
 - verder schrijven
+
+#### 28-05-2018
+
+- eerste adaptief uitvoeren
+- verder schrijven (experiment, methoden-tsp, kritiek verwerken, future work, related work)
+- 
+
+#### 29-05-2018
+
+- schrijven resultaten-image class
+- fixen verwijzingen
+- besloten te gaan checken op tijd voordelen
+- wss geen score voordelen vanwege gebrek aan locale minima
+
+#### 31-05-2018
+
+- geleerd hoe je testen kan schakelen met shellscripts en emailnotificaties
+- 5 tests in serie (vanwege tijdsmetingen) aangezet, zowel voot score als tijd met tsp50 en validatietests op tsp20 voor degrees of freedom
+- +1 modulariteit
+- verbeteren schrijfwerk van afgelopen week

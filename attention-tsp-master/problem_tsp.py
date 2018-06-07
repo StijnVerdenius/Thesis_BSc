@@ -54,6 +54,9 @@ class TSPDataset(Dataset):
             print("!!!Creating dataset for size {}, num_samples {}, entropy {}".format(size, num_samples, entropy))
             if (size >= target and entropy >= 1.0):
                 print("target-task dataset")
+                self.data = [torch.FloatTensor(target, 2).uniform_(0, 1) for i in range(num_samples)]
+            elif (entropy >= 1.0):
+                print("entropy above 1.0, so using uniform for size {}".format(size))
                 self.data = [torch.FloatTensor(size, 2).uniform_(0, 1) for i in range(num_samples)]
             else:
                 self.data = tsp_batch(size, entropy, num_samples).getall()

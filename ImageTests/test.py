@@ -1,3 +1,16 @@
+
+
+from dataobject import PersonalDataSet
+from dataBinder import DataBinder
+
+a = PersonalDataSet(randomness=0.0, grain  = 0.0, rebuild=True, name="easy", size=100)
+b = PersonalDataSet(randomness=1.0, grain  = 0.32, rebuild=True, name="hard", size=100)
+
+aa = DataBinder("easy", 4, raw=a)
+bb = DataBinder("hard", 4, raw = b)
+
+
+
 # from __future__ import print_function
 # import torch
 # import torchvision

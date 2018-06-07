@@ -11,10 +11,11 @@ from tensorboard_logger import configure
 
 from critic_network import CriticNetwork
 from options import get_options
-from train import train_epoch, validate
+import train as tr
 from baselines import NoBaseline, ExponentialBaseline, CriticBaseline, RolloutBaseline
 from attention_model import AttentionModel
 from problem_tsp import TSP as problem
+
 
 
 def maybe_cuda_model(model, cuda, parallel=True):
@@ -68,6 +69,12 @@ if __name__ == "__main__":
     # Overwrite model parameters by parameters to load
     model.load_state_dict({**model.state_dict(), **load_data.get('model', {})})
 
+    adaptief_vorige_score = []
+    adaptief_current_graph_size = 5
+    adaptief_current_entropy = 0.0
+
+    tr.saveAdaptief(adaptief_vorige_score, adaptief_current_graph_size, adaptief_current_entropy, opts)
+
     # Initialize baseline
     if opts.baseline == 'exponential':
         baseline = ExponentialBaseline(opts.exp_beta)
@@ -115,10 +122,10 @@ if __name__ == "__main__":
     val_dataset = problem.make_dataset(size=opts.graph_size, num_samples=opts.val_size, entropy=1.0, target=opts.graph_size)
 
     if opts.eval_only:
-        validate(model, val_dataset, opts)
+        tr.validate(model, val_dataset, opts)
     else:
         for epoch in range(opts.epoch_start, opts.epoch_start + opts.n_epochs):
-            train_epoch(
+            tr.train_epoch(
                 model,
                 optimizer,
                 baseline,

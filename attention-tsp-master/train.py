@@ -3,7 +3,7 @@ import time
 from tqdm import tqdm
 import torch
 import math
-
+# import _pickle as pickle
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from torch.nn import DataParallel
@@ -11,10 +11,10 @@ from tensorboard_logger import log_value
 
 from attention_model import set_decode_type
 from log_utils import log_values
+import json
+import numpy as np
 
-adaptief_vorige_score = []
-adaptief_current_graph_size = 5
-adaptief_current_entropy = 0.0
+
 
 def get_inner_model(model):
     return model.module if isinstance(model, DataParallel) else model
@@ -76,6 +76,11 @@ def clip_grad_norms(param_groups, max_norm=math.inf):
 
 def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, problem, opts):
     print("Start train epoch {}, lr={} for run {}".format(epoch, optimizer.param_groups[0]['lr'], opts.run_name))
+
+    termijn = open("termijnbewaking/{}.csv".format(opts.run_name), "a")
+    termijn.write(str(epoch)+","+str(time.ctime())+"\n")
+    termijn.close()
+
     step = epoch * (opts.epoch_size // opts.batch_size)
     start_time = time.time()
     lr_scheduler.step(epoch)
@@ -87,10 +92,8 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
     training_dataset = 0
     if (opts.experiment == "supervised"):
 
-        exp_params = opts.supervised_parameter
+        exp_params = loadArgument(opts.supervised_parameter)["data"]
         
-
-
         correct_tuple = 0
         counter = -1
 
@@ -99,7 +102,7 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
 
                 counter += 1
                 if (counter == epoch):
-                    correct_tuple = exp_params[correct_tuple]
+                    correct_tuple = tuple(exp_params[correct_tuple])
                     break
             if (type(correct_tuple) == type(tuple([1,2,3]))):
                 break
@@ -109,33 +112,45 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
         # training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=1, entropy=correct_tuple[2]))
 
     elif (opts.experiment == "adaptive"):
-        
+
+        adaptief_vorige_score, adaptief_current_graph_size, adaptief_current_entropy = loadAdaptief(opts)
+                        
         if (not len(adaptief_vorige_score) >=  (opts.epoch_size/opts.batch_size)*2):
-            print ("initial dataset")
-            training_dataset = baseline.wrap_dataset(problem.make_dataset(size=5, num_samples=opts.epoch_size, entropy=0.0, target=opts.graph_size))
+
+            if (len(adaptief_vorige_score) <= (opts.epoch_size/opts.batch_size) ):
+                print ("1/2 initial datasets of graph size")
+            else: 
+                print ("2/2 initial datasets of graph size")
+            training_dataset = baseline.wrap_dataset(problem.make_dataset(size=adaptief_current_graph_size, num_samples=opts.epoch_size, entropy=adaptief_current_entropy, target=opts.graph_size))
         elif (adaptief_current_graph_size >= opts.graph_size and adaptief_current_entropy >= 1.0):
             training_dataset = baseline.wrap_dataset(problem.make_dataset(size=opts.graph_size, num_samples=opts.epoch_size, entropy=1.0, target=opts.graph_size))
         else:
-            exp_params = opts.adaptive_parameter[0]
+            exp_params = loadArgument(opts.adaptive_parameter)["data"]
             percentage = exp_params[0]
             stepsize_size = exp_params[1]
             stepsize_entropy = exp_params[2]
             half = int(len(adaptief_vorige_score)/2)
             nieuw = np.mean(adaptief_vorige_score[half:])
             oud = np.mean(adaptief_vorige_score[:half])
+            print("average score before {}, average score after {}".format(oud, nieuw))
+
             improvement = -((nieuw-oud)/oud)
+
             if (improvement < percentage):
  
                 adaptief_current_entropy += stepsize_entropy
                 adaptief_current_graph_size += stepsize_size
+                adaptief_vorige_score.clear()
+                print ("improvement {} was lower than percentage {}".format(improvement, percentage))
                 print ("dataset upped to: entropy {}, size {}".format(adaptief_current_entropy, adaptief_current_graph_size))
             else:
-                print ("improvement {} was lower than percentage {}".format(improvement, percentage))
+                print ("improvement {} was higher than percentage {}".format(improvement, percentage))
             training_dataset = baseline.wrap_dataset(problem.make_dataset(size=adaptief_current_graph_size, num_samples=opts.epoch_size, entropy=adaptief_current_entropy, target=opts.graph_size))
+        saveAdaptief(adaptief_vorige_score, adaptief_current_graph_size, adaptief_current_entropy, opts)
     elif (opts.experiment == "unsupervised"):
         pass
     else:
-        training_dataset = baseline.wrap_dataset(problem.make_dataset(size=opts.graph_size, num_samples=opts.epoch_size, entropy=1.0, target=opts.graph_size))
+        training_dataset = baseline.wrap_dataset(problem.make_dataset(size=opts.graph_size, num_samples=opts.epoch_size, entropy=1.1, target=opts.graph_size))
 
     training_dataloader = DataLoader(training_dataset, batch_size=opts.batch_size, num_workers=1)
 
@@ -223,9 +238,11 @@ def train_batch(
     grad_norms = clip_grad_norms(optimizer.param_groups, opts.max_grad_norm)
     optimizer.step()
 
+    adaptief_vorige_score, adaptief_current_graph_size, adaptief_current_entropy = loadAdaptief(opts)
     if (len(adaptief_vorige_score) >= (opts.epoch_size/opts.batch_size)*2):
         adaptief_vorige_score.pop(0)
-    adaptief_vorige_score.append(cost)
+    adaptief_vorige_score.append(float(cost.mean()))
+    saveAdaptief(adaptief_vorige_score, adaptief_current_graph_size, adaptief_current_entropy, opts)
 
     # Logging
     if step % int(opts.log_step) == 0:
@@ -233,3 +250,39 @@ def train_batch(
                    log_likelihood, reinforce_loss, bl_loss, opts)
         
 
+def loadAdaptief(opts):
+    # with open(opts.run_name+'_adapatief.pkl', 'rb') as input:
+    #     return pickle.load(input)
+    data = {}
+    with open("temp/"+opts.run_name+'_adapatief.json') as f:
+        data = json.load(f)
+    return data["a"], data["b"], data["c"]
+
+def saveAdaptief(a,b,c,opts):
+
+    # if (len(a) > 0):
+    #     print (a.mean())
+    #     objectI = {"a":list([float(aa) for aa in a]),"b": int(b),"c":float(c)}
+    # else:
+    #     objectI = {"a":list([float(aa) for aa in a]),"b": int(b),"c":float(c)}
+
+    # try: 
+
+    objectI = {"a":a,"b":b,"c":c}
+
+    with open("temp/"+opts.run_name+'_adapatief.json', 'w') as outfile:
+        json.dump(objectI, outfile)
+    # except:
+    #     with open(opts.run_name+'_adapatief.json', 'w') as outfile:
+    #         json.dump([str(type(a)), str(type(b)), str(type(c))] , outfile)
+    #     2 + "a"
+    # with open(opts.run_name+'_adapatief.pkl', 'wb') as output:
+    #     pickle.dump(objectI, output, pickle.HIGHEST_PROTOCOL)
+
+def loadArgument(filename):
+    # with open(opts.run_name+'_adapatief.pkl', 'rb') as input:
+    #     return pickle.load(input)
+    data = {}
+    with open("experiments/{}".format(filename)) as f:
+        data = json.load(f)
+    return data
