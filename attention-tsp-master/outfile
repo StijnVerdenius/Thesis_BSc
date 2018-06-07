@@ -1,0 +1,2 @@
+python run.py --run_name testo1 --supervised_parameter probo1.json --experiment supervised 
+python run.py --run_name testo2 --supervised_parameter probo2.json
