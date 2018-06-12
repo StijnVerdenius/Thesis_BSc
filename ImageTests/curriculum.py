@@ -6,8 +6,8 @@ from torch.autograd import Variable
 import torch.nn as nn
 import torch.optim as optim
 import matplotlib.pyplot as plt
-import dataobject
-import neuralobject
+import dataobject as dataobject
+import neuralobject as neuralobject
 from torch.utils.data import DataLoader
 import numpy as np
 import cProfile, pstats
@@ -21,7 +21,7 @@ from dataobject import PersonalDataSet
 
 class Curriculum(object):
 
-    def __init__(self, curri, batchSize, testSetName, logFileName, neuralNet,  validationSet,entry = 0, classes= ('lijn', 'driehoek', 'parralellogram', 'cirkel')):
+    def __init__(self, curri, batchSize, testSetName, logFileName, neuralNet,  validationSet, entry = 0, classes= ('lijn', 'driehoek', 'parralellogram', 'cirkel')):
         self.curriJson = curri
         self.batchSize = batchSize
         self.net = neuralNet

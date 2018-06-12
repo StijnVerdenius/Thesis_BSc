@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 python mailing.py started_on_tsp20_f0_f1_fixed
 python run.py --graph_size 20 --run_name f0_f1_fixed --experiment supervised --supervised_parameter tsp20_f0_f1_fixed.json --baseline rollout
 python mailing.py started_on_tsp20_f0_f1_adap

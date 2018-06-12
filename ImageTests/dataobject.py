@@ -53,7 +53,7 @@ class PersonalDataSet(Dataset):
                 self.labels.append(1)
                 self.labels.append(2)
                 self.labels.append(3)
-                # print("generated %d out of %d" % (i,size))
+                print("generated %d out of %d" % (i,size))
 
             self.save()
         self.data, self.labels = self.load()

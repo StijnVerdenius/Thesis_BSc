@@ -1,25 +1,13 @@
 from curriculum import Curriculum
-import neuralobject
+import neuralobject as neuralobject
 import traceback
 
-sampleSize = 10
-additive = "adda_"
+sampleSize = 65
+additive = "addaptive_"
 
 net = neuralobject.Net()
-# curs = [(0,0,3),(0,0,4),(0,0,6),(0,0,7),(1,1,1),(1,2,4),(2,0,2),(2,2,2),(4,2,1),(6,0,1)]
-curs = [(0.05,0.05,-2)]
-# curs = [(1,5,9), (9,4,2), (1,3,11)]
-# curs=[(1,1,13)]
-# curs=[(1,2,3),(1,1,4),(0,0,10),(2,2,2),()]
+curs = [(0.1,0.05,-20)]
 
-# automated = [[0.0, 0.0], [0.1, 0.05], [0.3, 0.05], [0.3, 0.05], [0.5, 0.1], [0.7, 0.2], [0.7, 0.2], [0.7, 0.2], [0.7, 0.15], [0.6, 0.1], [0.7, 0.2], [0.7, 0.3], [0.7, 0.25], [0.6, 0.2], [0.6, 0.2], [0.7, 0.3], [0.7, 0.2], [0.7, 0.3], [0.6, 0.35], [0.7, 0.3], [0.7, 0.35], [0.7, 0.35], [0.7, 0.35], [0.7, 0.35]]
-
-# addaptive = [[0.0, 0.0], [0.1, 0.05], [0.3, 0.05], [0.3, 0.15], [0.4, 0.2], [0.5, 0.25], [0.6, 0.3], [0.7, 0.3]]
-
-
-# cur = [tuple([str(tuple(x))+"_train", 1, 0.05]) for x in addaptive] + [tuple([str((0.75, 0.32))+"_train", 20, -1.0])]
-
-# curs = [(0,0,15),(1,2,12)]
 for i in range(len(curs)):
 
     name = str(curs[i])
@@ -37,7 +25,7 @@ for i in range(len(curs)):
 
             net.reset()
 
-            curriculum = Curriculum(cur, 4, "hard_complete_train", "results/"+additive + name, net,"hard_test", entry=s)
+            curriculum = Curriculum(cur, 4, "test", "results/"+additive + name, net,"validation", entry=s)
 
             curriculum.doCurricullumAdaptive(23)
             # curriculum.doCurricullumForScore()
@@ -48,7 +36,7 @@ for i in range(len(curs)):
 
             net = neuralobject.Net()
 
-            curriculum = Curriculum(cur, 4, "hard_complete_train", "results/" + additive + name, net, "hard_test",
+            curriculum = Curriculum(cur, 4, "test", "results/" + additive + name, net, "validation",
                                     entry=s)
 
             # curriculum.doCurricullumForScore()
