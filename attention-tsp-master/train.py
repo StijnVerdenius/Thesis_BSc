@@ -147,6 +147,9 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
                 print ("improvement {} was higher than percentage {}".format(improvement, percentage))
             training_dataset = baseline.wrap_dataset(problem.make_dataset(size=adaptief_current_graph_size, num_samples=opts.epoch_size, entropy=adaptief_current_entropy, target=opts.graph_size))
         saveAdaptief(adaptief_vorige_score, adaptief_current_graph_size, adaptief_current_entropy, opts)
+        fn = open("termijnbewaking/{}_F_n.csv".format(opts.run_name), "a")
+        fn.write(str(epoch) + "," + str(adaptief_current_graph_size) + "," + str(adaptief_current_entropy) + "\n")
+        fn.close()
     elif (opts.experiment == "unsupervised"):
         pass
     else:
