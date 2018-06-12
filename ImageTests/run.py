@@ -2,11 +2,14 @@ from curriculum import Curriculum
 import neuralobject as neuralobject
 import traceback
 
-sampleSize = 65
-additive = "addaptive_"
+sampleSize = 75
+# additive = "addaptive_"
+additive = "lang_"
 
 net = neuralobject.Net()
-curs = [(0.1,0.05,-20)]
+# curs = [(0.1,0.05,-20)]
+curs = [(1,2,20)]
+# curs = [(0,0,23)]
 
 for i in range(len(curs)):
 
@@ -27,8 +30,8 @@ for i in range(len(curs)):
 
             curriculum = Curriculum(cur, 4, "test", "results/"+additive + name, net,"validation", entry=s)
 
-            curriculum.doCurricullumAdaptive(23)
-            # curriculum.doCurricullumForScore()
+            # curriculum.doCurricullumAdaptive(23)
+            curriculum.doCurricullumForScore()
         except:
             print("crashed, restart")
             print(traceback.extract_stack())
@@ -39,9 +42,9 @@ for i in range(len(curs)):
             curriculum = Curriculum(cur, 4, "test", "results/" + additive + name, net, "validation",
                                     entry=s)
 
-            # curriculum.doCurricullumForScore()
+            curriculum.doCurricullumForScore()
 
-            curriculum.doCurricullumAdaptive(23)
+            # curriculum.doCurricullumAdaptive(23)
 
 
 # cur = Curriculum((), 4, "hard_complete_train", "results/" + additive, net, "hard_test")
