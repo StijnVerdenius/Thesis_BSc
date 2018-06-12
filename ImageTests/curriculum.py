@@ -1,19 +1,19 @@
 from __future__ import print_function
-from dataBinder import DataBinder
+from Thesis_BSc.ImageTests.dataBinder import DataBinder
 import torch
 import torchvision
 from torch.autograd import Variable
 import torch.nn as nn
 import torch.optim as optim
 import matplotlib.pyplot as plt
-import dataobject
-import neuralobject
+import Thesis_BSc.ImageTests.dataobject as dataobject
+import Thesis_BSc.ImageTests.neuralobject as neuralobject
 from torch.utils.data import DataLoader
 import numpy as np
 import cProfile, pstats
 from io import StringIO
 from copy import deepcopy
-from dataobject import PersonalDataSet
+from Thesis_BSc.ImageTests.dataobject import PersonalDataSet
 
 
 
@@ -21,7 +21,7 @@ from dataobject import PersonalDataSet
 
 class Curriculum(object):
 
-    def __init__(self, curri, batchSize, testSetName, logFileName, neuralNet,  validationSet,entry = 0, classes= ('lijn', 'driehoek', 'parralellogram', 'cirkel')):
+    def __init__(self, curri, batchSize, testSetName, logFileName, neuralNet,  validationSet, entry = 0, classes= ('lijn', 'driehoek', 'parralellogram', 'cirkel')):
         self.curriJson = curri
         self.batchSize = batchSize
         self.net = neuralNet

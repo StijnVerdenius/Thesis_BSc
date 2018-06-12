@@ -1,71 +1,71 @@
 
+from __future__ import print_function
+from Thesis_BSc.ImageTests.dataobject import PersonalDataSet
+from Thesis_BSc.ImageTests.dataBinder import DataBinder
 
-from dataobject import PersonalDataSet
-from dataBinder import DataBinder
-
-a = PersonalDataSet(randomness=0.0, grain  = 0.0, rebuild=True, name="easy", size=100)
-b = PersonalDataSet(randomness=1.0, grain  = 0.32, rebuild=True, name="hard", size=100)
-
-aa = DataBinder("easy", 4, raw=a)
-bb = DataBinder("hard", 4, raw = b)
-
-
-
-# from __future__ import print_function
-# import torch
-# import torchvision
-# from torch.autograd import Variable
-# import torch.nn as nn
-# import torch.optim as optim
-# import matplotlib.pyplot as plt
-# import dataobject
-# import neuralobject
-# from torch.utils.data import DataLoader
-# import numpy as np
-# import cProfile, pstats
-# from io import StringIO
+# a = PersonalDataSet(randomness=0.0, grain  = 0.0, rebuild=True, name="easy", size=100)
+# b = PersonalDataSet(randomness=1.0, grain  = 0.32, rebuild=True, name="hard", size=100)
 #
-# batch_siz = 2
-#
-# def showpic(foto):
-#     print(foto.shape, foto.size, type(foto))
-#     plt.imshow(foto)
-#     plt.show()
-#
-# def show_dataset(dataset):
-#     for foto, _ in dataset:
-#         img = foto / 2 + 0.5  # unnormalize
-#         npimg = img.numpy()
-#         plt.imshow(np.transpose(npimg, (1, 2, 0)))
-#         plt.show()
-#
-# # trainRaw = dataobject.PersonalDataSet(size=400, rebuild=False, name="train")
-# # testRaw = dataobject.PersonalDataSet(size=100, rebuild=False, name="test")
-#
+# aa = DataBinder("easy", 4, raw=a)
+# bb = DataBinder("hard", 4, raw = b)
+
+
+
+
+import torch
+import torchvision
+from torch.autograd import Variable
+import torch.nn as nn
+import torch.optim as optim
+import matplotlib.pyplot as plt
+import Thesis_BSc.ImageTests.dataobject as dataobject
+import Thesis_BSc.ImageTests.neuralobject as neuralobject
+from torch.utils.data import DataLoader
+import numpy as np
+import cProfile, pstats
+from io import StringIO
+
+batch_siz = 2
+
+def showpic(foto):
+    print(foto.shape, foto.size, type(foto))
+    plt.imshow(foto)
+    plt.show()
+
+def show_dataset(dataset):
+    for foto, _ in dataset:
+        img = foto / 2 + 0.5  # unnormalize
+        npimg = img.numpy()
+        plt.imshow(np.transpose(npimg, (1, 2, 0)))
+        plt.show()
+
+# trainRaw = dataobject.PersonalDataSet(size=400, rebuild=False, name="train")
+# testRaw = dataobject.PersonalDataSet(size=100, rebuild=False, name="test")
+
 # pr = cProfile.Profile()
 # pr.enable()
-# print(" dataset #1")
-# trainRaw = dataobject.PersonalDataSet(size=2000, framesize=32, rebuild=False, name="easy_train", randomness=0.0, grain=0.0)
-# # develop = dataobject.PersonalDataSet(size=5, framesize=32, rebuild=True, name="easy_test", randomness=0.0, grain=0.0)
-# # show_dataset(develop)
-# print(" dataset #2")
-# # develop = dataobject.PersonalDataSet(size=2000, framesize=32, rebuild=True, name="middle_train", randomness=0.25, grain=0.15)
-# # develop = dataobject.PersonalDataSet(size=5, framesize=32, rebuild=True, name="middle_test", randomness=0.25, grain=0.1)
-# # show_dataset(develop)
-# print(" dataset #3")
-# # trainRaw = dataobject.PersonalDataSetataSet(size=2000, framesize=32, rebuild=False, name="hard_train", randomness=0.75, grain=0.32)
-# testRaw = dataobject.PersonalDataSet(size=500, framesize=32, rebuild=False, name="hard_test", randomness=0.75, grain=0.32)
-# # show_dataset(develop)
-# print(" dataset #4")
-# # develop = dataobject.PersonalDataSet(size=6000, framesize=32, rebuild=True, name="hard_complete_train", randomness=0.75, grain=0.32)
-# # show_dataset(develop)
+print(" dataset #1")
+# trainRaw = dataobject.PersonalDataSet(size=2000, framesize=32, rebuild=True, name="easy_train", randomness=0.0, grain=0.0)
+# develop = dataobject.PersonalDataSet(size=5, framesize=32, rebuild=True, name="easy_test", randomness=0.0, grain=0.0)
+# show_dataset(develop)
+print(" dataset #2")
+# develop = dataobject.PersonalDataSet(size=2000, framesize=32, rebuild=True, name="middle_train", randomness=0.25, grain=0.15)
+# develop = dataobject.PersonalDataSet(size=5, framesize=32, rebuild=True, name="middle_test", randomness=0.25, grain=0.1)
+# show_dataset(develop)
+print(" dataset #3")
+trainRaw = dataobject.PersonalDataSet(size=2000, framesize=32, rebuild=True, name="hard_train", randomness=0.75, grain=0.32)
+testRaw = dataobject.PersonalDataSet(size=1000, framesize=32, rebuild=True, name="validation", randomness=0.75, grain=0.32)
+# show_dataset(develop)
+print(" dataset #4")
+develop = dataobject.PersonalDataSet(size=500, framesize=32, rebuild=True, name="test", randomness=0.75, grain=0.32)
+# show_dataset(develop)
 # pr.disable()
 # s = StringIO()
 # sortby = 'cumulative'
 # ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
 # ps.print_stats()
 # print (s.getvalue())
-#
+2+"a"
 # train = DataLoader(trainRaw, batch_size=batch_siz,
 #                                           shuffle=False, num_workers=2)
 #

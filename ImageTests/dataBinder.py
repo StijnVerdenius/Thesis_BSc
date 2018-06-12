@@ -1,6 +1,6 @@
 from __future__ import print_function
 import matplotlib.pyplot as plt
-import dataobject
+import Thesis_BSc.ImageTests.dataobject as dataobject
 from torch.utils.data import DataLoader
 import numpy as np
 from random import randint
