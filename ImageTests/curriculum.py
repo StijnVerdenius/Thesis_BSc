@@ -1,19 +1,19 @@
 from __future__ import print_function
-from Thesis_BSc.ImageTests.dataBinder import DataBinder
+from dataBinder import DataBinder
 import torch
 import torchvision
 from torch.autograd import Variable
 import torch.nn as nn
 import torch.optim as optim
 import matplotlib.pyplot as plt
-import Thesis_BSc.ImageTests.dataobject as dataobject
-import Thesis_BSc.ImageTests.neuralobject as neuralobject
+import dataobject as dataobject
+import neuralobject as neuralobject
 from torch.utils.data import DataLoader
 import numpy as np
 import cProfile, pstats
 from io import StringIO
 from copy import deepcopy
-from Thesis_BSc.ImageTests.dataobject import PersonalDataSet
+from dataobject import PersonalDataSet
 
 
 
