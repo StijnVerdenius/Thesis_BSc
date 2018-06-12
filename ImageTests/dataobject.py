@@ -4,7 +4,7 @@ from torch.utils.data import Dataset
 from random import randint
 import pickle
 import numpy as np
-from Thesis_BSc.ImageTests.figuren import Figuren
+from figuren import Figuren
 
 
 

@@ -1,5 +1,5 @@
-from Thesis_BSc.ImageTests.curriculum import Curriculum
-import Thesis_BSc.ImageTests.neuralobject as neuralobject
+from curriculum import Curriculum
+import neuralobject as neuralobject
 import traceback
 
 sampleSize = 65
