@@ -114,6 +114,8 @@ def train_epoch(model, optimizer, baseline, lr_scheduler, epoch, val_dataset, pr
     elif (opts.experiment == "adaptive"):
 
         adaptief_vorige_score, adaptief_current_graph_size, adaptief_current_entropy = loadAdaptief(opts)
+
+        # training_dataset = baseline.wrap_dataset(problem.make_dataset(size=correct_tuple[0], num_samples=1, entropy=correct_tuple[2]))
                         
         if (not len(adaptief_vorige_score) >=  (opts.epoch_size/opts.batch_size)*2):
 

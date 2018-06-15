@@ -169,6 +169,10 @@ class tsp_instance(object):
         # print kochline
         toPick = order
         bestLine = 0
+
+
+
+
         while (order>len(kochline[bestLine])):
             bestLine += 1
 
