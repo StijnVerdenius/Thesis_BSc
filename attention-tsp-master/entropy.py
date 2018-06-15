@@ -3,7 +3,7 @@
 
 from random import randint, choice
 import numpy as np
-# from matplotlib import pyplot as #plt
+from matplotlib import pyplot as plt
 from copy import deepcopy
 from sklearn import preprocessing
 import torch
@@ -56,11 +56,11 @@ class Entropy(object):
 
         if (self.show):
             print(len(positions))
-            # positions = noisify(np.concatenate((positions, np.array([positions[0]])), axis=0), 1.0)
+            positions = np.concatenate((positions, np.array([positions[0]])), axis=0)
             #plt.scatter(positions[:,0], positions[:,1])
             #plt.show()
-            #plt.plot(positions[:,0], positions[:,1])
-            #plt.show()
+            plt.plot(positions[:,0], positions[:,1])
+            plt.show()
         else:
             return [list([float(y) for y in x]) for x in positions]
 
@@ -99,8 +99,8 @@ class Entropy(object):
         if (self.show):
             print (len(positions))
             positions = np.concatenate((positions, np.array([positions[0]])), axis=0)
-            #plt.plot(positions[:,0], positions[:,1])
-            #plt.show()
+            plt.plot(positions[:,0], positions[:,1])
+            plt.show()
         else:
             return [list([float(y) for y in x]) for x in positions]
 
@@ -156,7 +156,7 @@ class Entropy(object):
                 
 
 
-e = Entropy(show=False)
+e = Entropy(show=True)
 
 class tsp_instance(object):
     def __init__(self, order, entropydegree=0.0):
@@ -169,6 +169,10 @@ class tsp_instance(object):
         # print kochline
         toPick = order
         bestLine = 0
+
+
+
+
         while (order>len(kochline[bestLine])):
             bestLine += 1
 

@@ -17,13 +17,13 @@ dingen = [
 
 ##################
 
-agentNames = ["No Curriculum", "Supervised Curriculum", "Addaptive Curriculum", "Unsupervised Curriculum"]
+agentNames = ["No Curriculum", "Fixed Curriculum", "Addaptive Curriculum", "Unsupervised Curriculum"]
 
 fig, ax = plt.subplots(1)
 import matplotlib.transforms as mtransforms
 trans = mtransforms.blended_transform_factory(ax.transData, ax.transAxes)
 
-for iii, sort in enumerate([("Accuracy over Epochs on Validationset", 90, "lower right", "validationset")]):#, ("Lossfunction over Epochs on Validationset", 750, "upper right", "loss")]):
+for iii, sort in enumerate([("Accuracy over Epochs on Validationset", 100, "lower right", "validationset")]):#, ("Lossfunction over Epochs on Validationset", 750, "upper right", "loss")]):
 
     curs = dingen
     for iiii, cur in enumerate(curs):
@@ -53,13 +53,15 @@ for iii, sort in enumerate([("Accuracy over Epochs on Validationset", 90, "lower
         newdata = newdata2
         stdev = stdev2
 
-        plt.axis((int(len(newdata)*0.0), len(newdata)-1, 70, sort[1]))
+        plt.axis((int(len(newdata)*0.0), len(newdata)-1, 00, sort[1]))
 
-        # betrouwbaarheids = 2
+        # betrouwbaarheids *= 1.1
 
         # print betrouwbaarheids
 
         print (betrouwbaarheids)
+
+        print (np.mean(stdev), np.mean(2*(np.array(stdev)/betrouwbaarheids)), "banana")
 
         a = np.array(newdata)-2*(np.array(stdev)/betrouwbaarheids)
         b = np.array(newdata)+2*(np.array(stdev)/betrouwbaarheids)
@@ -70,9 +72,9 @@ for iii, sort in enumerate([("Accuracy over Epochs on Validationset", 90, "lower
             if(not ag % len(dingen) == iiii):
                 stdev[ag] = 0
 
-        plt.errorbar(range(len(newdata)), newdata, 2*(np.array(stdev)/betrouwbaarheids), label=agentNames[iiii],  alpha=0.5, capsize=2, marker = "o", markersize=4.0)
+        # plt.errorbar(range(len(newdata)), newdata, 2*(np.array(stdev)/betrouwbaarheids), label=agentNames[iiii],  alpha=0.5, capsize=2, marker = "o", markersize=4.0)
 
-        # plt.plot(range(len(newdata)), newdata)
+        plt.plot(range(len(newdata)), newdata, label=agentNames[iiii])
 
         if (iii == 0):
             data = []

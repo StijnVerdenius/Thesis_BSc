@@ -2,11 +2,14 @@ from curriculum import Curriculum
 import neuralobject as neuralobject
 import traceback
 
-sampleSize = 65
+sampleSize = 45
 additive = "addaptive_"
+# additive = "lang_"
 
 net = neuralobject.Net()
 curs = [(0.1,0.05,-20)]
+# curs = [(1,2,20)]
+# curs = [(0,0,23)]
 
 for i in range(len(curs)):
 
