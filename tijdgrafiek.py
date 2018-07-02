@@ -5,7 +5,7 @@ from dateutil import parser
 from matplotlib import rc
 
 
-f = open("time_experiment_20180608T172727.csv", "r")
+f = open("tijd_experiment_2.csv", "r")
 # f = open("time2.csv", "r")
 
 data = []
@@ -14,7 +14,7 @@ vorige = parser.parse("Fri Jun 8 17:27:32 2018")
 
 for line in f:
     x,y = line.split(",")
-    x = int(x)+4
+    x = int(x)*0.05-0.05
     datum = parser.parse(y)
     verschil = datum-vorige
     data.append([x,verschil.seconds])
@@ -22,9 +22,9 @@ for line in f:
 
 data = np.array(data[1:])
 
-plt.axis((0,100,0,1900))
+plt.axis((0,1.0,0,1900))
 plt.plot(data[:,0], data[:,1])
-plt.xlabel('Size of instance ')
+plt.xlabel('Entropy of instance ')
 plt.ylabel('Time per epoch (s)')
-plt.title('Progression of time complexity with size')
+plt.title('Progression of time complexity with entropy')
 plt.show()

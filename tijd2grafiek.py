@@ -3,14 +3,18 @@ import numpy as np
 import time
 from dateutil import parser
 
+dir = "workresults/score/"
 
-filenames = ["testding.csv", "testding2.csv"]
-label = ["ananas", "banaan"]
+
+filenames = ["20_f0_f1_{}".format(x) for x in ["basel", "adap", "fixed"]]
+
+# filenames = ["testding.csv", "testding2.csv"]
+label = ["No Curriculum", "Adaptive Curriculum", "Fixed Curriculum"]
 
 data = []
 for i, filename in enumerate(filenames):
 
-    f = open(filename, "r")
+    f = open(dir+filename+".csv", "r")
 
     data = []
 
@@ -35,7 +39,7 @@ for i, filename in enumerate(filenames):
 plt.xticks([])
 
 x1,x2,y1,y2 = plt.axis()
-plt.axis((x1,x2,5.5,8.5))
+# plt.axis((x1,x2,3.8,3.9))
 plt.xlabel('Time relative')
 plt.ylabel('Tour-length')
 plt.legend(loc="upper right")
